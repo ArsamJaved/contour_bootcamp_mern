@@ -1,11 +1,33 @@
-let result = document.getElementById("result");
+let display = document.getElementById("display");
 
-function appendValue(val) {
-  result.value += val;
-}
+let buttons = Array.from(document.getElementsByClassName("button"));
 
-function calculate() {
-  let expression = result.value;
-  expression = expression.replaceAll("%", "/100");
-  result.value = eval(expression);
-}
+buttons.map((button) => {
+  button.addEventListener("click", (e) => {
+    switch (e.target.innerText) {
+      case "AC":
+        display.innerText = "";
+        break;
+      case "=":
+        try {
+          display.innerText = eval(display.innerText);
+        } catch {
+          display.innerText = "Error";
+        }
+        break;
+      case "←":
+        if (display.innerText) {
+          display.innerText = display.innerText.slice(0, -1);
+        }
+        break;
+      default:
+        display.innerText += e.target.innerText;
+    }
+  });
+});
+
+// let display = document.getElementById("display");
+// let buttons = Array.from(document.getElementsByClassName("button"));
+// buttons.map((button) => {
+//   button.addEventListener("click", (e) => {});
+// });
